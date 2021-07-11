@@ -1,5 +1,5 @@
 FROM telegraf:alpine
-RUN apk add --no-cache pip3 python3
+RUN apk add --no-cache python3 py3-pip 
 
 RUN pip3 install fritzconnection
 RUN apk add --no-cache git && \
