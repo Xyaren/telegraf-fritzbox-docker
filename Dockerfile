@@ -7,6 +7,8 @@ RUN apk add --no-cache git && \
   chmod +x ./TelegrafFritzBox/telegrafFritzBox.py && \
   chmod +x ./TelegrafFritzBox/telegrafFritzSmartHome.py && \
   cp ./TelegrafFritzBox/telegrafFritzBox.py /usr/local/bin && \
-  cp ./TelegrafFritzBox/telegrafFritzSmartHome.py /usr/local/bin
+  cp ./TelegrafFritzBox/telegrafFritzSmartHome.py /usr/local/bin && \
+  rm -r ./TelegrafFritzBox && \
+  apk del git
 
 ADD ./telegraf.conf /etc/telegraf/telegraf.conf
