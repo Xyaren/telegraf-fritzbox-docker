@@ -1,4 +1,6 @@
 FROM telegraf:alpine
+
+USER root
 RUN apk add --no-cache python3 py3-pip 
 
 RUN pip3 install fritzconnection
@@ -12,3 +14,5 @@ RUN apk add --no-cache git && \
   apk del git
 
 ADD ./telegraf.conf /etc/telegraf/telegraf.conf
+
+USER telegraf
