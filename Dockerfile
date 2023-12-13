@@ -1,17 +1,22 @@
 FROM telegraf:alpine
 
 USER root
-RUN apk add --no-cache python3 py3-pip 
 
-RUN pip3 install fritzconnection
-RUN apk add --no-cache git && \
-  git clone https://github.com/Schmidsfeld/TelegrafFritzBox/ && \
-  chmod +x ./TelegrafFritzBox/telegrafFritzBox.py && \
-  chmod +x ./TelegrafFritzBox/telegrafFritzSmartHome.py && \
-  cp ./TelegrafFritzBox/telegrafFritzBox.py /usr/local/bin && \
-  cp ./TelegrafFritzBox/telegrafFritzSmartHome.py /usr/local/bin && \
-  rm -r ./TelegrafFritzBox && \
-  apk del git
+WORKDIR /fritz
+
+RUN apk add --no-cache python3 py3-pip
+
+
+RUN python3 -m venv /fritz/venv
+COPY ./requirements.txt /fritz/
+RUN /fritz/venv/bin/pip install -r /fritz/requirements.txt
+
+COPY ./telegrafFritzBox.py /fritz/
+COPY ./telegrafFritzSmartHome.py /fritz/
+
+RUN chmod +x /fritz/*.py
+
+RUN ls -al /fritz/venv/bin/
 
 ADD ./telegraf.conf /etc/telegraf/telegraf.conf
 
