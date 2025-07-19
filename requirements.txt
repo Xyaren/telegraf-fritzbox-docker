@@ -1,1 +1,1 @@
-fritzconnection==1.14.0
+fritzconnection==1.15.0
